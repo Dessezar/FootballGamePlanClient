@@ -24,6 +24,19 @@ export async function createGamePlan(name: string): Promise<GamePlan> {
   return await response.json();
 }
 
+export async function addPlayToGamePlan(
+  gamePlanId: number,
+  dto: { name: string; isPass: boolean }
+): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/api/GamePlan/${gamePlanId}/plays`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dto),
+  });
+
+  if (!response.ok) throw new Error("Failed to add play");
+}
+
 export async function deleteGamePlan(id: number): Promise<void> {
   const response = await fetch(`${API_BASE_URL}/api/GamePlan/${id}`, {
     method: "DELETE",
