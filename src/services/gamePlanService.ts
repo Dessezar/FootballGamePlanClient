@@ -28,13 +28,19 @@ export async function addPlayToGamePlan(
   gamePlanId: number,
   dto: { name: string; isPass: boolean }
 ): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/api/GamePlan/${gamePlanId}/plays`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dto),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/api/GamePlan/${gamePlanId}/plays`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dto),
+    }
+  );
 
-  if (!response.ok) throw new Error("Failed to add play");
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`Failed to add play (${response.status}): ${text}`);
+  }
 }
 
 export async function deleteGamePlan(id: number): Promise<void> {
