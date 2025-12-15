@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import GamePlanDetailsPage from "./pages/GamePlanDetailsPage.tsx";
-import GamePlanCreatePage from "./pages/GamePlanCreatPage.tsx";
+import GamePlanCreatePage from "./pages/GamePlanCreatePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

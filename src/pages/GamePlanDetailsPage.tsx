@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-type GamePlan = { id: number; name: string };
+import { getGamePlanById } from "../services/gamePlanService";
+import type { GamePlan } from "../types/gamePlan";
 
 export default function GamePlanDetailsPage() {
   const { id } = useParams();
@@ -11,16 +11,12 @@ export default function GamePlanDetailsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (Number.isNaN(gamePlanId)) return;
+
     (async () => {
       try {
         setError(null);
-
-        const base = import.meta.env.VITE_API_BASE_URL;
-        const res = await fetch(`${base}/api/GamePlan/${gamePlanId}`);
-
-        if (!res.ok) throw new Error("Kunde inte hämta gameplan");
-
-        const gp = await res.json();
+        const gp = await getGamePlanById(gamePlanId);
         setGamePlan(gp);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Okänt fel");
@@ -37,9 +33,7 @@ export default function GamePlanDetailsPage() {
       <div className="mx-auto max-w-xl">
         <div className="mb-4 flex items-center justify-between">
           <h1 className="text-xl font-bold">{gamePlan ? gamePlan.name : "Laddar..."}</h1>
-          <Link to="/" className="text-sm text-yellow-300">
-            Tillbaka
-          </Link>
+          <Link to="/" className="text-sm text-yellow-300">Tillbaka</Link>
         </div>
 
         {error && (
@@ -50,7 +44,7 @@ export default function GamePlanDetailsPage() {
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
           <p className="text-sm text-slate-300">
-            Nästa steg: här ska vi lista plays och lägga till nya plays.
+            Nästa steg: här ska vi lista plays och registrera outcome.
           </p>
           <p className="mt-2 text-xs text-slate-400">GamePlanId: {gamePlanId}</p>
         </div>

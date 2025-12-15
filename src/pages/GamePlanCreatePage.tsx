@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { CreateGamePlanForm } from "../components/CreateGamePlanForm";
 import { PlayDraftBuilder } from "../components/PlayDraftBuilder";
 import type { Play } from "../types/play";
-import { createGamePlan, addPlayToGamePlan } from "../services/gamePlanService";
+import {
+  createGamePlan,
+  addPlaysToGamePlan,
+} from "../services/gamePlanService";
 
 export default function GamePlanCreatePage() {
   const navigate = useNavigate();
@@ -28,24 +31,21 @@ export default function GamePlanCreatePage() {
       setSaving(true);
       setGamePlanName(name);
 
-      // 1) Skapa gameplan
       const created = await createGamePlan(name);
 
-      // 2) Lägg till plays kopplade till gameplan
-      for (const p of plays) {
-        await addPlayToGamePlan(created.id, { name: p.name, isPass: p.isPass });
+      // Skicka alla plays på en gång!
+      if (plays.length > 0) {
+        const playsDto = plays.map((p) => ({ name: p.name, isPass: p.isPass }));
+        await addPlaysToGamePlan(created.id, playsDto);
       }
 
       setSaving(false);
-
-      // 3) Navigera till gameplan (använd plays)
       navigate(`/gameplans/${created.id}`);
     } catch (e) {
       setSaving(false);
       setError(e instanceof Error ? e.message : "Okänt fel");
     }
   }
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <div className="mx-auto flex max-w-md flex-col gap-6 px-4 py-6 sm:max-w-2xl">
