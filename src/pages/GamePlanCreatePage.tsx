@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CreateGamePlanForm } from "../components/CreateGamePlanForm";
 import { PlayDraftBuilder } from "../components/PlayDraftBuilder";
-import type { Play } from "../types/play";
+import type { PlayDraft } from "../types/playDraft";
 import {
   createGamePlan,
   addPlaysToGamePlan,
@@ -11,12 +11,12 @@ import {
 export default function GamePlanCreatePage() {
   const navigate = useNavigate();
 
-  const [plays, setPlays] = useState<Play[]>([]);
-  const [gamePlanName, setGamePlanName] = useState<string>(""); // för att visa vald name
+  const [plays, setPlays] = useState<PlayDraft[]>([]);
+  const [gamePlanName, setGamePlanName] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  function addDraftPlay(play: Play) {
+  function addDraftPlay(play: PlayDraft) {
     setPlays((prev) => [play, ...prev]);
   }
 
@@ -24,7 +24,6 @@ export default function GamePlanCreatePage() {
     setPlays((prev) => prev.filter((p) => p.tempId !== tempId));
   }
 
-  // Vi återanvänder din CreateGamePlanForm men behöver fånga name i page-nivå.
   async function handleCreate(name: string) {
     try {
       setError(null);
@@ -33,7 +32,6 @@ export default function GamePlanCreatePage() {
 
       const created = await createGamePlan(name);
 
-      // Skicka alla plays på en gång!
       if (plays.length > 0) {
         const playsDto = plays.map((p) => ({ name: p.name, isPass: p.isPass }));
         await addPlaysToGamePlan(created.id, playsDto);
@@ -72,7 +70,6 @@ export default function GamePlanCreatePage() {
           </div>
         )}
 
-        {/* 1) Namn */}
         <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-lg">
           <h2 className="mb-3 text-lg font-semibold">Namn på GamePlan</h2>
           <CreateGamePlanForm onCreate={handleCreate} />
@@ -81,14 +78,12 @@ export default function GamePlanCreatePage() {
           </p>
         </section>
 
-        {/* 2) Plays */}
         <PlayDraftBuilder
           plays={plays}
           onAdd={addDraftPlay}
           onRemove={removeDraftPlay}
         />
 
-        {/* 3) Status */}
         <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 text-sm text-slate-300">
           <div>
             Valt namn:{" "}

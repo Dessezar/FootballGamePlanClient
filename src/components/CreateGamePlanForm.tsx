@@ -14,7 +14,7 @@ export function CreateGamePlanForm({ onCreate }: Props) {
     if (!trimmed) return;
 
     onCreate(trimmed);
-    // setName("");
+    setName("");
   }
 
   return (

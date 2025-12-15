@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from "react";
-import type { Play } from "../types/play";
+import type { PlayDraft } from "../types/playDraft";
 
 type Props = {
-  plays: Play[];
-  onAdd: (play: Play) => void;
+  plays: PlayDraft[];
+  onAdd: (play: PlayDraft) => void;
   onRemove: (tempId: number) => void;
 };
 

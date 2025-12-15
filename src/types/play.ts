@@ -1,5 +1,9 @@
+import type { PlayResult } from "./playResult";
+
 export type Play = {
-  tempId: number;          // bara för React key lokalt
+  id: number;
   name: string;
   isPass: boolean;
+  gamePlanId: number;
+  results?: PlayResult[]; 
 };

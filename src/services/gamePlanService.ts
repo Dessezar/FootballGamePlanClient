@@ -59,3 +59,45 @@ export async function deleteGamePlan(id: number): Promise<void> {
   });
   if (!response.ok) throw new Error("Failed to delete game plan");
 }
+
+export async function addPlayResult(
+  playId: number,
+  gamePlanId: number,
+  dto: {
+    coverage: number;
+    isPass: boolean;
+    passFailReason: number;
+    yardsGained: number;
+        isSuccessful: boolean;  
+  }
+): Promise<void> {
+  const response = await fetch(
+    `${API_BASE_URL}/api/GamePlan/plays/${playId}/results`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        gamePlanId,
+        playId,
+        ...dto,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`Failed to add play result (${response.status}): ${text}`);
+  }
+}
+
+export async function getPlayResults(playId: number) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/GamePlan/plays/${playId}/results`
+  );
+  
+  if (!response.ok) {
+    throw new Error("Failed to fetch play results");
+  }
+  
+  return await response.json();
+}
