@@ -29,7 +29,7 @@ export function PlayDraftBuilder({ plays, onAdd, onRemove }: Props) {
 
   return (
     <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-lg">
-      <h2 className="mb-3 text-lg font-semibold">Lägg till plays</h2>
+      <h2 className="mb-3 text-lg font-semibold">Add plays to GamePlan</h2>
 
       <form
         onSubmit={handleSubmit}
@@ -51,7 +51,7 @@ export function PlayDraftBuilder({ plays, onAdd, onRemove }: Props) {
             checked={isPass}
             onChange={(e) => setIsPass(e.target.checked)}
           />
-          Pass
+          Pass Play
         </label>
 
         <button
@@ -65,12 +65,12 @@ export function PlayDraftBuilder({ plays, onAdd, onRemove }: Props) {
 
       <div className="mt-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold">Plays som kommer sparas</h3>
+          <h3 className="text-sm font-semibold">Added Plays</h3>
           <span className="text-xs text-slate-400">{plays.length} st</span>
         </div>
 
         {plays.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-400">Inga plays ännu.</p>
+          <p className="mt-2 text-sm text-slate-400">No plays yet.</p>
         ) : (
           <div className="mt-2 grid grid-cols-1 gap-2">
             {plays.map((p) => (

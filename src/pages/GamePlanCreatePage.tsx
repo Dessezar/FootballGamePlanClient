@@ -50,17 +50,17 @@ export default function GamePlanCreatePage() {
         <header className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
-              Skapa GamePlan
+              Create GamePlan
             </h1>
             <p className="text-sm text-slate-400">
-              Lägg till plays här. På nästa sida används de i matchläge.
+              Create and organize gameplans for your matches.
             </p>
           </div>
           <Link
             to="/"
             className="text-sm text-yellow-300 hover:text-yellow-200"
           >
-            Tillbaka
+            Back
           </Link>
         </header>
 
@@ -71,10 +71,10 @@ export default function GamePlanCreatePage() {
         )}
 
         <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-lg">
-          <h2 className="mb-3 text-lg font-semibold">Namn på GamePlan</h2>
+          <h2 className="mb-3 text-lg font-semibold">GamePlan Name</h2>
           <CreateGamePlanForm onCreate={handleCreate} />
           <p className="mt-2 text-xs text-slate-400">
-            Du kan lägga till plays nedan innan du klickar Skapa.
+            {/* Du kan lägga till plays nedan innan du klickar Skapa. */}
           </p>
         </section>
 
@@ -86,7 +86,7 @@ export default function GamePlanCreatePage() {
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 text-sm text-slate-300">
           <div>
-            Valt namn:{" "}
+            Chosen GamePlan Name:{" "}
             <span className="font-semibold">
               {gamePlanName || "inte satt ännu"}
             </span>
@@ -96,8 +96,7 @@ export default function GamePlanCreatePage() {
             <span className="font-semibold">{plays.length}</span>
           </div>
           <div className="mt-2 text-xs text-slate-400">
-            När du klickar Skapa ovan skapas först gameplanen, sedan sparas
-            varje play i din Azure SQL via API.
+            Clicking Create saves your Plays to GamePlan
           </div>
           {saving && <div className="mt-2 text-yellow-300">Sparar...</div>}
         </div>

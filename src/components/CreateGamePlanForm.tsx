@@ -31,7 +31,7 @@ export function CreateGamePlanForm({ onCreate }: Props) {
         disabled={!name.trim()}
         className="rounded-xl bg-yellow-400 px-4 py-2 text-sm font-semibold text-slate-950"
       >
-        Skapa
+        Create
       </button>
     </form>
   );

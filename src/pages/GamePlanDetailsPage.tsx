@@ -54,7 +54,7 @@ export default function GamePlanDetailsPage() {
             to="/"
             className="text-sm text-yellow-300 hover:text-yellow-200"
           >
-            Tillbaka
+            Back
           </Link>
         </div>
 
@@ -80,10 +80,10 @@ export default function GamePlanDetailsPage() {
           </div>
           <h2 className="mb-4 text-lg font-semibold">Plays</h2>
           {!gamePlan ? (
-            <p className="text-sm text-slate-400">Laddar plays...</p>
+            <p className="text-sm text-slate-400">Loading Plays...</p>
           ) : gamePlan.plays.length === 0 ? (
             <p className="text-sm text-slate-400">
-              Inga plays på denna gameplan ännu.
+              No plays in this GamePlan yet.
             </p>
           ) : (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">

@@ -7,7 +7,7 @@ type Props = {
 
 export function GamePlanList({ gamePlans, onDelete }: Props) {
   if (gamePlans.length === 0) {
-    return <p className="text-slate-400">Inga gameplans ännu.</p>;
+    return <p className="text-slate-400">No GamePlans</p>;
   }
 
   return (
