@@ -23,7 +23,7 @@ export function CreateGamePlanForm({ onCreate }: Props) {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Namn på gameplan"
+        placeholder="GamePlan name"
         className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm"
       />
       <button
